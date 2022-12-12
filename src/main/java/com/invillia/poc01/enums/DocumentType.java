@@ -1,4 +1,4 @@
-package com.invillia.poc01.models.dtos;
+package com.invillia.poc01.enums;
 
 
 public enum DocumentType {

@@ -2,10 +2,9 @@ package com.invillia.poc01.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.invillia.poc01.annotations.Document;
-import com.invillia.poc01.models.dtos.DocumentType;
+import com.invillia.poc01.enums.DocumentType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
