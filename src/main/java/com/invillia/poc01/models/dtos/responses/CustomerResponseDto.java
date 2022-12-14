@@ -1,7 +1,7 @@
 package com.invillia.poc01.models.dtos.responses;
 
 import com.invillia.poc01.enums.DocumentType;
-import com.invillia.poc01.models.Customer;
+import com.invillia.poc01.models.CustomerModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class CustomerResponseDto {
 
     private List<AddressResponseDto> addresses;
 
-    public CustomerResponseDto(Customer customer){
+    public CustomerResponseDto(CustomerModel customer){
         this.idCustomer = customer.getIdCustomer();
         this.name = customer.getName();
         this.email = customer.getEmail();

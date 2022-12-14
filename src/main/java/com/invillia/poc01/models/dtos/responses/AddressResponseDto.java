@@ -1,6 +1,6 @@
 package com.invillia.poc01.models.dtos.responses;
 
-import com.invillia.poc01.models.Address;
+import com.invillia.poc01.models.AddressModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class AddressResponseDto {
 
     private Boolean mainAddress;
 
-    public AddressResponseDto(Address address) {
+    public AddressResponseDto(AddressModel address) {
         this.idAddress = address.getIdAddress();
         this.street = address.getStreet();
         this.number = address.getNumber();

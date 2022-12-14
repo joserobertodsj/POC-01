@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address {
+public class AddressModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAddress;
@@ -37,7 +37,7 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private CustomerModel customer;
 
     @NotEmpty(message = "Preenchimento obrigatório!")
     private Boolean mainAddress;

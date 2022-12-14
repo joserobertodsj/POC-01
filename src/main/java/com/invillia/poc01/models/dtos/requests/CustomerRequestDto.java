@@ -3,15 +3,16 @@ package com.invillia.poc01.models.dtos.requests;
 
 import com.invillia.poc01.annotations.Document;
 import com.invillia.poc01.enums.DocumentType;
+import com.invillia.poc01.models.AddressModel;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -22,7 +23,7 @@ public class CustomerRequestDto {
     @NotBlank(message = "Preenchimento obrigatório!")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Preenchimento obrigatório!")
     @Enumerated(EnumType.STRING)
     private DocumentType documentType;
 
@@ -37,6 +38,9 @@ public class CustomerRequestDto {
 
     @NotBlank(message = "Preenchimento obrigatório!")
     private String phoneNumber;
+
+    @NotNull @Size(min = 1, max = 5, message = "Ao menos 01 endereço deverá ser cadastrado.")
+    private List<AddressModel> addresses =new ArrayList<>();
 
 
 }

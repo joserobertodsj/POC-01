@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class CustomerModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCustomer;
@@ -43,6 +43,6 @@ public class Customer {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Address> addresses =new ArrayList<>();
+    private List<AddressModel> addresses =new ArrayList<>();
 
 }
