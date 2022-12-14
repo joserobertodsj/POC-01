@@ -1,48 +1,42 @@
-package com.invillia.poc01.models;
+package com.invillia.poc01.models.dtos.requests;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.invillia.poc01.annotations.Document;
 import com.invillia.poc01.enums.DocumentType;
-import jakarta.persistence.*;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
-@Table(name = "tb_customer")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCustomer;
+public class CustomerRequestDto {
 
     @NotBlank(message = "Preenchimento obrigatório!")
-    @Column(name = "customer_name")
     private String name;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     private DocumentType documentType;
 
-    @Document
     @NotBlank(message = "Preenchimento obrigatório!")
+    @Document
+    @Pattern(regexp = "(^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$)?(^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$)", message = "CPF: 0000.000.000-00 / CNPJ: 00.000.000/0000-00")
     private String documentNumber;
 
     @NotBlank(message = "Preenchimento obrigatório!")
+    @Email(message = "E-mail inválido.")
     private String email;
 
     @NotBlank(message = "Preenchimento obrigatório!")
     private String phoneNumber;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Address> addresses =new ArrayList<>();
 
 }

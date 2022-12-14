@@ -1,21 +1,16 @@
-package com.invillia.poc01.models;
+package com.invillia.poc01.models.dtos.requests;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "tb_address")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAddress;
+public class AddressRequestDto {
 
     @NotBlank(message = "Preenchimento obrigatório!")
     private String street;
@@ -35,10 +30,9 @@ public class Address {
     @NotBlank(message = "Preenchimento obrigatório!")
     private String zipCode;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
-
     @NotEmpty(message = "Preenchimento obrigatório!")
     private Boolean mainAddress;
+
+
+
 }
