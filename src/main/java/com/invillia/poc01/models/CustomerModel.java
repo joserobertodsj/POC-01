@@ -9,12 +9,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_customer")
+@Table(name = "tb_customer", uniqueConstraints={@UniqueConstraint(columnNames={"documentNumber"})})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +25,6 @@ public class CustomerModel {
     private Long idCustomer;
 
     @NotBlank(message = "Preenchimento obrigatório!")
-    @Column(name = "customer_name")
     private String name;
 
     @NotNull

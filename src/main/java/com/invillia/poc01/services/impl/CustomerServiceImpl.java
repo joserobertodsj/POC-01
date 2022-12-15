@@ -8,10 +8,10 @@ import com.invillia.poc01.repositories.CustomerRepository;
 import com.invillia.poc01.services.CustomerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,13 +26,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerModel findById(Long idCustomer) {
-
-        return customerRepository.findById(idCustomer).orElseThrow(() -> new CustomerNotFoundException("Usuário não encontrado!"));
+        Optional<CustomerModel> customerModelOptional = customerRepository.findById(idCustomer);
+        return customerModelOptional.orElseThrow(() -> new CustomerNotFoundException("Usuário não encontrado!"));
     }
 
     @Override
-    public List<CustomerModel> findAllCustomers() {
-        return customerRepository.findAll();
+    public Page<CustomerModel> findAllCustomers(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 
     @Override

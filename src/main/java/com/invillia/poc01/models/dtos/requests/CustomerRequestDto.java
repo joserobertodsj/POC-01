@@ -3,16 +3,12 @@ package com.invillia.poc01.models.dtos.requests;
 
 import com.invillia.poc01.annotations.Document;
 import com.invillia.poc01.enums.DocumentType;
-import com.invillia.poc01.models.AddressModel;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Data
@@ -29,7 +25,7 @@ public class CustomerRequestDto {
 
     @NotBlank(message = "Preenchimento obrigatório!")
     @Document
-    @Pattern(regexp = "(^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$)?(^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$)", message = "CPF: 0000.000.000-00 / CNPJ: 00.000.000/0000-00")
+    @Pattern(regexp = "([0-9]{2}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[-]?[0-9]{2})")
     private String documentNumber;
 
     @NotBlank(message = "Preenchimento obrigatório!")
@@ -38,9 +34,5 @@ public class CustomerRequestDto {
 
     @NotBlank(message = "Preenchimento obrigatório!")
     private String phoneNumber;
-
-    @NotNull @Size(min = 1, max = 5, message = "Ao menos 01 endereço deverá ser cadastrado.")
-    private List<AddressModel> addresses =new ArrayList<>();
-
 
 }
