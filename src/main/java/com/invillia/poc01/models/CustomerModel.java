@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +40,7 @@ public class CustomerModel {
     @NotBlank(message = "Preenchimento obrigatório!")
     private String phoneNumber;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", fetch =FetchType.EAGER, cascade = CascadeType.ALL)
     private List<AddressModel> addresses =new ArrayList<>();
 
 }

@@ -4,14 +4,18 @@ import com.invillia.poc01.exceptions.CustomerNotFoundException;
 import com.invillia.poc01.models.CustomerModel;
 import com.invillia.poc01.models.dtos.requests.CustomerRequestDto;
 import com.invillia.poc01.models.dtos.requests.CustomerRequestUpdateDto;
+import com.invillia.poc01.models.dtos.responses.AddressResponseDto;
 import com.invillia.poc01.repositories.CustomerRepository;
 import com.invillia.poc01.services.CustomerService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +23,10 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository) {
@@ -67,5 +75,13 @@ public class CustomerServiceImpl implements CustomerService {
 
         return customerRepository.save(customerModel);
 
+    }
+
+    @Override
+    public List<AddressResponseDto> getAllAddresses(Long idCustomer) {
+        return findById(idCustomer).getAddresses()
+                .stream()
+                .map(addressModel -> modelMapper.map(addressModel, AddressResponseDto.class))
+                .toList();
     }
 }

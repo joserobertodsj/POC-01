@@ -1,11 +1,9 @@
 package com.invillia.poc01.models.dtos.responses;
 
-import com.invillia.poc01.models.AddressModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressResponseDto {
@@ -24,15 +22,4 @@ public class AddressResponseDto {
     private String zipCode;
 
     private Boolean mainAddress;
-
-    public AddressResponseDto(AddressModel address) {
-        this.idAddress = address.getIdAddress();
-        this.street = address.getStreet();
-        this.number = address.getNumber();
-        this.district = address.getDistrict();
-        this.city = address.getCity();
-        this.state = address.getState();
-        this.zipCode = address.getZipCode();
-        this.mainAddress = address.getMainAddress();
-    }
 }

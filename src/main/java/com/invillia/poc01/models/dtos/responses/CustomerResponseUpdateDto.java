@@ -1,10 +1,13 @@
 package com.invillia.poc01.models.dtos.responses;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomerResponseUpdateDto {
 
     private String name;

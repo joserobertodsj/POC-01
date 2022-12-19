@@ -2,7 +2,7 @@ package com.invillia.poc01.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,10 +35,9 @@ public class AddressModel {
     @NotBlank(message = "Preenchimento obrigatório!")
     private String zipCode;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private CustomerModel customer;
 
-    @NotEmpty(message = "Preenchimento obrigatório!")
     private Boolean mainAddress;
 }

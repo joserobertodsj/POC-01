@@ -3,6 +3,7 @@ package com.invillia.poc01.controllers;
 import com.invillia.poc01.models.CustomerModel;
 import com.invillia.poc01.models.dtos.requests.CustomerRequestDto;
 import com.invillia.poc01.models.dtos.requests.CustomerRequestUpdateDto;
+import com.invillia.poc01.models.dtos.responses.AddressResponseDto;
 import com.invillia.poc01.models.dtos.responses.CustomerResponseDto;
 import com.invillia.poc01.models.dtos.responses.CustomerResponseUpdateDto;
 import com.invillia.poc01.services.impl.CustomerServiceImpl;
@@ -17,6 +18,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -53,6 +56,11 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     public void delete (@PathVariable(value = "id") Long id){
         customerService.deleteCustomer(id);
+    }
+
+    @GetMapping("/addresses/{id}")
+    public List<AddressResponseDto> getAllAddresses(@PathVariable(value = "id") Long id){
+        return customerService.getAllAddresses(id);
     }
 
 

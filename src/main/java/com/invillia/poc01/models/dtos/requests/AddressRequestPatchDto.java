@@ -1,17 +1,14 @@
 package com.invillia.poc01.models.dtos.requests;
 
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class AddressRequestDto {
-
+@AllArgsConstructor
+public class AddressRequestPatchDto {
     @NotBlank(message = "Preenchimento obrigatório!")
     private String street;
 
@@ -29,9 +26,4 @@ public class AddressRequestDto {
 
     @NotBlank(message = "Preenchimento obrigatório!")
     private String zipCode;
-
-    private Boolean mainAddress;
-
-    private Long customerId;
-
 }

@@ -2,11 +2,14 @@ package com.invillia.poc01.models.dtos.requests;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerRequestUpdateDto {
 
     @NotBlank(message = "Preenchimento obrigatório!")
