@@ -1,7 +1,5 @@
 package com.invillia.poc01.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.invillia.poc01.annotations.Document;
 import com.invillia.poc01.enums.DocumentType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -30,7 +28,6 @@ public class CustomerModel {
     @Enumerated(EnumType.STRING)
     private DocumentType documentType;
 
-    @Document
     @NotBlank(message = "Preenchimento obrigatório!")
     private String documentNumber;
 
