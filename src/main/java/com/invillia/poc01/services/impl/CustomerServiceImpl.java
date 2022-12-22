@@ -1,5 +1,6 @@
 package com.invillia.poc01.services.impl;
 
+import com.invillia.poc01.exceptions.EmailException;
 import com.invillia.poc01.exceptions.ModelException;
 import com.invillia.poc01.models.CustomerModel;
 import com.invillia.poc01.models.dtos.requests.CustomerRequestDto;
@@ -83,5 +84,12 @@ public class CustomerServiceImpl implements CustomerService {
                 .stream()
                 .map(addressModel -> modelMapper.map(addressModel, AddressResponseDto.class))
                 .toList();
+    }
+
+    @Override
+    public void existsByEmail(String email) {
+        if (customerRepository.existsByEmail(email)){
+            throw new EmailException("Email já cadastrado.");
+        }
     }
 }
