@@ -37,12 +37,12 @@ public class AddressController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<AddressResponseDto> updateAddress(@PathVariable(value = "id") Long id, @RequestBody @Valid AddressRequestPatchDto addressRequestPatchDto){
-        return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(addressService.updateAddress(id, addressRequestPatchDto), AddressResponseDto.class));
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(modelMapper.map(addressService.updateAddress(id, addressRequestPatchDto), AddressResponseDto.class));
     }
 
     @PatchMapping("/main-address/{id}")
     public ResponseEntity<AddressResponseDto> updateMainAddress (@PathVariable(value = "id") Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(addressService.updateMainAddress(id), AddressResponseDto.class));
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(modelMapper.map(addressService.updateMainAddress(id), AddressResponseDto.class));
     }
 
     @DeleteMapping("/{id}")
