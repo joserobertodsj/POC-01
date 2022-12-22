@@ -50,6 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerModel saveCustomer(CustomerRequestDto customerRequestDto) {
         var customerModel = new CustomerModel();
         BeanUtils.copyProperties(customerRequestDto, customerModel);
+        existsByEmail(customerModel.getEmail());
         return customerRepository.save(customerModel);
     }
 

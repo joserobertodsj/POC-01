@@ -48,8 +48,8 @@ public class RestExceptionHandler {
     public ResponseEntity<?> handleEmailException(EmailException e){
         EmailExceptionDetails emailExceptionDetails = EmailExceptionDetails.EmailExceptionDetailsBuilder
                 .newBuilder()
-                .title("Email already registered")
-                .status(HttpStatus.CONTINUE.value())
+                .title("Email Exception")
+                .status(HttpStatus.CONFLICT.value())
                 .message(e.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();
