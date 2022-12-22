@@ -1,7 +1,9 @@
 package com.invillia.poc01.exceptions.handler;
 
+import com.invillia.poc01.exceptions.EmailException;
 import com.invillia.poc01.exceptions.MainAddressException;
 import com.invillia.poc01.exceptions.MaxLimitException;
+import com.invillia.poc01.exceptions.details.EmailExceptionDetails;
 import com.invillia.poc01.exceptions.details.MainAddressDetails;
 import com.invillia.poc01.exceptions.details.MaxLimitDetails;
 import org.springframework.http.HttpStatus;
@@ -40,5 +42,17 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(mainAddressDetails, HttpStatus.CONFLICT);
 
 
+    }
+
+    @ExceptionHandler(EmailException.class)
+    public ResponseEntity<?> handleEmailException(EmailException e){
+        EmailExceptionDetails emailExceptionDetails = EmailExceptionDetails.EmailExceptionDetailsBuilder
+                .newBuilder()
+                .title("Email already registered")
+                .status(HttpStatus.CONTINUE.value())
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(emailExceptionDetails, HttpStatus.CONFLICT);
     }
 }
