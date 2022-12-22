@@ -1,8 +1,8 @@
 package com.invillia.poc01.services.impl;
 
-import com.invillia.poc01.exceptions.AddressNotFoundException;
 import com.invillia.poc01.exceptions.MainAddressException;
 import com.invillia.poc01.exceptions.MaxLimitException;
+import com.invillia.poc01.exceptions.ModelException;
 import com.invillia.poc01.models.AddressModel;
 import com.invillia.poc01.models.CustomerModel;
 import com.invillia.poc01.models.dtos.requests.AddressRequestDto;
@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressModel findById(Long idAddress) {
         Optional<AddressModel> addressModelOptional = addressRepository.findById(idAddress);
-        return addressModelOptional.orElseThrow(()-> new AddressNotFoundException("Endereço não encontrado!"));
+        return addressModelOptional.orElseThrow(ModelException::new);
     }
 
 
@@ -71,7 +72,7 @@ public class AddressServiceImpl implements AddressService {
     @Transactional
     public AddressModel updateAddress(Long idAddress, AddressRequestPatchDto addressRequestPatchDto) {
         Optional<AddressModel> addressModelOptional = addressRepository.findById(idAddress);
-        addressModelOptional.orElseThrow(() -> new AddressNotFoundException("Endereço não encontrado!"));
+        addressModelOptional.orElseThrow(ModelException::new);
 
         var addressModel = addressModelOptional.get();
         BeanUtils.copyProperties(addressRequestPatchDto, addressModel);
@@ -86,7 +87,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressModel updateMainAddress(Long idAddress) {
         Optional<AddressModel> addressModelOptional = addressRepository.findById(idAddress);
-        addressModelOptional.orElseThrow(() -> new AddressNotFoundException("Endereço não encontrado!"));
+        addressModelOptional.orElseThrow(ModelException::new);
 
         var addressModel = addressModelOptional.get();
 
@@ -115,7 +116,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void addressLimit(CustomerModel customerModel) {
         if(customerModel.getAddresses().size() == 5){
-            throw new MaxLimitException("Você atingiu o limite de endereços cadastrados!");
+            throw new MaxLimitException("Você atingiu o limite de endereços cadastrados.");
         }
 
     }

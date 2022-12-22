@@ -1,6 +1,6 @@
 package com.invillia.poc01.services.impl;
 
-import com.invillia.poc01.exceptions.CustomerNotFoundException;
+import com.invillia.poc01.exceptions.ModelException;
 import com.invillia.poc01.models.CustomerModel;
 import com.invillia.poc01.models.dtos.requests.CustomerRequestDto;
 import com.invillia.poc01.models.dtos.requests.CustomerRequestUpdateDto;
@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerModel findById(Long idCustomer) {
         Optional<CustomerModel> customerModelOptional = customerRepository.findById(idCustomer);
-        return customerModelOptional.orElseThrow(() -> new CustomerNotFoundException("Usuário não encontrado!"));
+        return customerModelOptional.orElseThrow(ModelException::new);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public CustomerModel updateCustomer(Long idCustomer, CustomerRequestUpdateDto customerRequestUpdateDto) {
         Optional<CustomerModel> customerModelOptional = customerRepository.findById(idCustomer);
-        customerModelOptional.orElseThrow(()-> new CustomerNotFoundException("Usuário não encontrado!"));
+        customerModelOptional.orElseThrow(ModelException::new);
 
         var customerModel = customerModelOptional.get();
         BeanUtils.copyProperties(customerRequestUpdateDto, customerModel);

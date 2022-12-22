@@ -20,6 +20,7 @@ public class AddressController {
     @Autowired
     private AddressServiceImpl addressService;
 
+    @Autowired
     private final ModelMapper modelMapper;
 
 
@@ -31,7 +32,7 @@ public class AddressController {
 
     @PostMapping
     public ResponseEntity<AddressResponseDto> saveAddress (@RequestBody @Valid AddressRequestDto addressRequestDto){
-        return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(addressService.saveAddress(addressRequestDto), AddressResponseDto.class));
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(addressService.saveAddress(addressRequestDto), AddressResponseDto.class));
     }
 
     @PatchMapping("/{id}")
@@ -45,6 +46,7 @@ public class AddressController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete (@PathVariable(value = "id") Long id){
         addressService.delete(id);
 
