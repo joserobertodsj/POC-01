@@ -26,5 +26,7 @@ public interface CustomerService {
 
     void existsByEmail (String email);
 
+    void existsByDocumentNumber(String documentNumber);
+
     
 }

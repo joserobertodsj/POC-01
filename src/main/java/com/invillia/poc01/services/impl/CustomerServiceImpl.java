@@ -1,5 +1,6 @@
 package com.invillia.poc01.services.impl;
 
+import com.invillia.poc01.exceptions.DocumentNumberException;
 import com.invillia.poc01.exceptions.EmailException;
 import com.invillia.poc01.exceptions.ModelException;
 import com.invillia.poc01.models.CustomerModel;
@@ -50,7 +51,8 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerModel saveCustomer(CustomerRequestDto customerRequestDto) {
         var customerModel = new CustomerModel();
         BeanUtils.copyProperties(customerRequestDto, customerModel);
-        existsByEmail(customerModel.getEmail());
+        existsByDocumentNumber(customerRequestDto.getDocumentNumber());
+        existsByEmail(customerRequestDto.getEmail());
         return customerRepository.save(customerModel);
     }
 
@@ -66,6 +68,8 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerModel updateCustomer(Long idCustomer, CustomerRequestUpdateDto customerRequestUpdateDto) {
         Optional<CustomerModel> customerModelOptional = customerRepository.findById(idCustomer);
         customerModelOptional.orElseThrow(ModelException::new);
+
+        existsByEmail(customerRequestUpdateDto.getEmail());
 
         var customerModel = customerModelOptional.get();
         BeanUtils.copyProperties(customerRequestUpdateDto, customerModel);
@@ -91,6 +95,13 @@ public class CustomerServiceImpl implements CustomerService {
     public void existsByEmail(String email) {
         if (customerRepository.existsByEmail(email)){
             throw new EmailException("Email já cadastrado.");
+        }
+    }
+
+    @Override
+    public void existsByDocumentNumber(String documentNumber) {
+        if(customerRepository.existsByDocumentNumber(documentNumber)){
+            throw new DocumentNumberException("Documento já cadastrado.");
         }
     }
 }

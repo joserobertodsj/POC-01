@@ -1,8 +1,10 @@
 package com.invillia.poc01.exceptions.handler;
 
+import com.invillia.poc01.exceptions.DocumentNumberException;
 import com.invillia.poc01.exceptions.EmailException;
 import com.invillia.poc01.exceptions.MainAddressException;
 import com.invillia.poc01.exceptions.MaxLimitException;
+import com.invillia.poc01.exceptions.details.DocumentNumberExceptionDetails;
 import com.invillia.poc01.exceptions.details.EmailExceptionDetails;
 import com.invillia.poc01.exceptions.details.MainAddressDetails;
 import com.invillia.poc01.exceptions.details.MaxLimitDetails;
@@ -48,16 +50,24 @@ public class RestExceptionHandler {
     public ResponseEntity<?> handleEmailException(EmailException e){
         EmailExceptionDetails emailExceptionDetails = EmailExceptionDetails.EmailExceptionDetailsBuilder
                 .newBuilder()
-<<<<<<< HEAD
                 .title("Email Exception")
                 .status(HttpStatus.CONFLICT.value())
-=======
-                .title("Email already registered")
-                .status(HttpStatus.CONTINUE.value())
->>>>>>> 6cc17833c3a874189ee99d656496c80cb1ab913d
                 .message(e.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(emailExceptionDetails, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(DocumentNumberException.class)
+    public ResponseEntity<?> handleDocumentNumberException(DocumentNumberException e){
+        DocumentNumberExceptionDetails documentNumberExceptionDetails = DocumentNumberExceptionDetails.DocumentNumberExceptionDetailsBuilder
+                .newBuilder()
+                .title("Document Number Exception")
+                .status(HttpStatus.CONFLICT.value())
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(documentNumberExceptionDetails, HttpStatus.CONFLICT);
     }
 }
