@@ -109,7 +109,21 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void saveCustomer() {
+    void whenCreateThenReturnSuccess() {
+        Mockito.when(customerRepository.save(Mockito.any())).thenReturn(customerModel);
+
+        CustomerModel response = customerService.saveCustomer(customerRequestDto);
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(CustomerModel.class, response.getClass());
+        Assertions.assertEquals(ID_CUSTOMER, response.getIdCustomer());
+        Assertions.assertEquals(NAME, response.getName());
+        Assertions.assertEquals(DocumentType.CPF, response.getDocumentType());
+        Assertions.assertEquals(DOCUMENT_NUMBER, response.getDocumentNumber());
+        Assertions.assertEquals(EMAIL, response.getEmail());
+        Assertions.assertEquals(PHONE_NUMBER, response.getPhoneNumber());
+
+
     }
 
     @Test
