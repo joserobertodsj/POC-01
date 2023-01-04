@@ -104,4 +104,15 @@ public class CustomerServiceImpl implements CustomerService {
             throw new DocumentNumberException("Documento já cadastrado.");
         }
     }
+
+    @Override
+    public Page<CustomerModel> findByName(String name, Pageable pageable) {
+        Page<CustomerModel> byNameIgnoreCase = customerRepository.findByNameIgnoreCase(name, pageable);
+        if (byNameIgnoreCase.isEmpty()){
+            throw new ModelException();
+        }
+        return byNameIgnoreCase;
+    }
+
+
 }
