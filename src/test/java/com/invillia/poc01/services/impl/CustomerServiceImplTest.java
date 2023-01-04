@@ -19,10 +19,15 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -50,6 +55,9 @@ class CustomerServiceImplTest {
     private CustomerRequestDto customerRequestDto;
 
     private Optional<CustomerModel> customerModelOptional;
+
+    private Pageable page = Pageable.ofSize(5);
+
 
     @BeforeEach
     void setUp() {
@@ -86,7 +94,18 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void findAllCustomers() {
+    void whenFindAllThenReturnAnListOfCustomers() {
+        List<CustomerModel> customerModelList = Collections.singletonList(new CustomerModel(ID_CUSTOMER,
+                NAME,  DocumentType.CPF, DOCUMENT_NUMBER
+                , EMAIL, PHONE_NUMBER, new ArrayList<>()));
+        Mockito.when(customerRepository.findAll((Pageable)Mockito.any())).thenReturn(new PageImpl<CustomerModel>(customerModelList));
+
+        Page<CustomerModel> response = customerService.findAllCustomers(page);
+        Assertions.assertEquals(1, response.getSize());
+        Assertions.assertEquals(CustomerModel.class, response.stream().toList().get(0).getClass());
+        Assertions.assertEquals(ID_CUSTOMER, response.stream().toList().get(0).getIdCustomer());
+
+
     }
 
     @Test
