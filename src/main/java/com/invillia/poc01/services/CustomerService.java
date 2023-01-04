@@ -28,5 +28,7 @@ public interface CustomerService {
 
     void existsByDocumentNumber(String documentNumber);
 
+    Page<CustomerModel> findByName (String name, Pageable pageable);
+
     
 }
