@@ -27,7 +27,8 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    private CustomerServiceImpl customerService;
+    private final CustomerServiceImpl customerService;
+
 
     private final ModelMapper modelMapper;
 
@@ -38,9 +39,15 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<CustomerResponseDto>> getAllCustomer (@PageableDefault(direction = Sort.Direction.ASC, sort = "name")Pageable pageable){
-        Page<CustomerModel> customerModelPage = customerService.findAllCustomers(pageable);
-        return ResponseEntity.status(HttpStatus.OK).body(customerModelPage.map(customerModel -> modelMapper.map(customerModel, CustomerResponseDto.class)));
+    public ResponseEntity<Page<CustomerResponseDto>> getAllCustomer (@PageableDefault(direction = Sort.Direction.ASC, sort = "name")Pageable pageable
+    , @RequestParam(required = false) String name){
+        if(name != null){
+            Page<CustomerModel> customerModelPage = customerService.findByName(name, pageable);
+            return ResponseEntity.status(HttpStatus.OK).body(customerModelPage.map(customerModel -> modelMapper.map(customerModel, CustomerResponseDto.class)));
+        }else {
+            Page<CustomerModel> customerModelPage = customerService.findAllCustomers(pageable);
+            return ResponseEntity.status(HttpStatus.OK).body(customerModelPage.map(customerModel -> modelMapper.map(customerModel, CustomerResponseDto.class)));
+        }
     }
 
     @PostMapping
@@ -63,6 +70,8 @@ public class CustomerController {
     public List<AddressResponseDto> getAllAddresses(@PathVariable(value = "id") Long id){
         return customerService.getAllAddresses(id);
     }
+
+
 
 
 }
