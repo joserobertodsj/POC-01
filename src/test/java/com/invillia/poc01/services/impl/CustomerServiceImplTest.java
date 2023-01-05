@@ -1,12 +1,15 @@
 package com.invillia.poc01.services.impl;
 
 import com.invillia.poc01.enums.DocumentType;
+import com.invillia.poc01.exceptions.DocumentNumberException;
+import com.invillia.poc01.exceptions.EmailException;
 import com.invillia.poc01.exceptions.ModelException;
 import com.invillia.poc01.models.AddressModel;
 import com.invillia.poc01.models.CustomerModel;
 import com.invillia.poc01.models.dtos.requests.CustomerRequestDto;
 import com.invillia.poc01.repositories.CustomerRepository;
 
+import jakarta.el.ELException;
 import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -139,11 +142,29 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void existsByEmail() {
+    void whenCreateThenReturnAnEmailException() {
+        Mockito.when(customerRepository.existsByEmail(Mockito.anyString())).thenThrow(new EmailException("E-mail já cadastrado."));
+
+        try {
+            customerService.saveCustomer(customerRequestDto);
+        }catch (Exception ex){
+            Assertions.assertEquals(EmailException.class, ex.getClass());
+            Assertions.assertEquals("E-mail já cadastrado.", ex.getMessage());
+        }
+
     }
 
     @Test
-    void existsByDocumentNumber() {
+    void whenCreateThenReturnADocumentNumberException() {
+        Mockito.when(customerRepository.existsByDocumentNumber(Mockito.anyString())).thenThrow(new DocumentNumberException("Documento já cadastrado."));
+
+        try {
+            customerService.saveCustomer(customerRequestDto);
+        }catch (Exception ex){
+            Assertions.assertEquals(DocumentNumberException.class, ex.getClass());
+            Assertions.assertEquals("Documento já cadastrado.", ex.getMessage());
+
+        }
     }
 
     @Test

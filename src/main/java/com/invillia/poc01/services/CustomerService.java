@@ -24,7 +24,7 @@ public interface CustomerService {
 
     List<AddressResponseDto> getAllAddresses(Long idCustomer);
 
-    void existsByEmail (String email);
+    void existsByEmail(String email);
 
     void existsByDocumentNumber(String documentNumber);
 

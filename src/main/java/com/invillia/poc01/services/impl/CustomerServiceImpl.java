@@ -94,9 +94,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void existsByEmail(String email) {
         if (customerRepository.existsByEmail(email)){
-            throw new EmailException("Email já cadastrado.");
+            throw new EmailException("E-mail já cadastrado.");
         }
     }
+
 
     @Override
     public void existsByDocumentNumber(String documentNumber) {
