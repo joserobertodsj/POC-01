@@ -59,8 +59,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional
     public void deleteCustomer(Long idCustomer) {
-        CustomerModel customerModel = findById(idCustomer);
-        customerRepository.delete(customerModel);
+        findById(idCustomer);
+        customerRepository.deleteById(idCustomer);
     }
 
     @Override
